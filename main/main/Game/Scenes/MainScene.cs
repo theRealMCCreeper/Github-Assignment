@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Engine;
 
 namespace Lecture4
@@ -16,6 +16,12 @@ namespace Lecture4
                 case '@':
                     AddEntity(new Player(Services.AssetManager.GetTexture(Art.Turtle), pixelPosition, Vector2.Zero, new Vector2(128, 128)));
                     return true;
+                case 'n':
+                    AddEntity(NPC.CreateNPC(pixelPosition,"rabbit"));
+                    return true; // rabbit
+                case 't':
+                    AddEntity(NPC.CreateNPC(pixelPosition, "turtle"));
+                    return true; // turtle
             }
             return false;
         }
