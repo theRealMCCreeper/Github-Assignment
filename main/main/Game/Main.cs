@@ -41,10 +41,6 @@ namespace Lecture4
         {
             Input.Update();
             Services.DialogueSystem.Update(gameTime);
-            if (Input.IsInputEventPressed(InputEvent.Talk))
-            {
-                Services.DialogueSystem.DisplayDialogue("hello");
-            }
             scene.Update(gameTime);
             HandleSceneChange();
         }
@@ -61,7 +57,7 @@ namespace Lecture4
         {
             spriteBatch.Begin();
             scene.Draw(spriteBatch);
-            Services.DialogueSystem.Draw(spriteBatch);
+            Services.InventorySystem.Draw(spriteBatch);
             spriteBatch.End();
         }
     }

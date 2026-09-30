@@ -15,14 +15,6 @@ public class Player : SolidEntity
     {
     }
 
-    private Rectangle GetTalkCollider()
-    {
-        Rectangle collider = GetCollider();
-        int talkColliderExtra = 32;
-
-        return new Rectangle(collider.X - talkColliderExtra, collider.Y - talkColliderExtra, collider.Width + (talkColliderExtra * 2), collider.Height + (talkColliderExtra * 2));
-    }
-
     public override void Update(GameTime gameTime)
     {
 
@@ -32,7 +24,7 @@ public class Player : SolidEntity
             desiredDirection.Normalize();
         }
         Move(desiredDirection*speed);
-        HandleTalking();
+        HandleItemPickup();
     }
     void HandleInput()
     {
@@ -54,20 +46,15 @@ public class Player : SolidEntity
             desiredDirection.Y -= 1;
         }
     }
-    void HandleTalking()
+    void HandleItemPickup()
     {
-        if (Input.IsInputEventPressed(InputEvent.Talk))
+        List<ColliderEntity> overlappedEntities = scene.GetColliderEntitiesWithinCollider(GetCollider());
+        foreach(ColliderEntity solid in overlappedEntities)
         {
-            List<ColliderEntity> overlappedEntities = scene.GetColliderEntitiesWithinCollider(GetTalkCollider());
-            foreach (ColliderEntity solid in overlappedEntities)
+            if(solid is ItemPickup itemPickup)
             {
-                if (solid is NPC npc)
-                {
-                    npc.TalkTo();
-                    break;
-                }
+                itemPickup.PickUp();
             }
         }
-
-    }
+    } // pickup
 }
