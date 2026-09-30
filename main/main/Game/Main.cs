@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -41,6 +41,10 @@ namespace Lecture4
         {
             Input.Update();
             Services.DialogueSystem.Update(gameTime);
+            if (Input.IsInputEventPressed(InputEvent.Talk))
+            {
+                Services.DialogueSystem.DisplayDialogue("hello");
+            }
             scene.Update(gameTime);
             HandleSceneChange();
         }
@@ -57,6 +61,7 @@ namespace Lecture4
         {
             spriteBatch.Begin();
             scene.Draw(spriteBatch);
+            Services.DialogueSystem.Draw(spriteBatch);
             spriteBatch.End();
         }
     }
